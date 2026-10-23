@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f2f5f9">
+<meta name="description" content="Modo treino para as rotinas do wger" data-i18n-content="app.description">
+<title data-i18n="app.title">Treino</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Treino" data-i18n-content="app.title">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="screen-login" class="screen screen-login">
+  <div class="login-card">
+    <div class="brand-mark" aria-hidden="true">T</div>
+    <h1 data-i18n="app.title">Treino</h1>
+    <p class="login-sub" data-i18n="app.subtitle">Entre com sua conta do wger para carregar as rotinas.</p>
+    <form id="login-form" novalidate>
+      <label class="field">
+        <span data-i18n="login.user">Usuário</span>
+        <input id="login-user" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+      </label>
+      <label class="field">
+        <span data-i18n="login.pass">Senha</span>
+        <input id="login-pass" name="password" type="password" autocomplete="current-password" required>
+      </label>
+      <p id="login-error" class="form-error" role="alert" hidden></p>
+      <button id="login-submit" class="btn btn-primary btn-block" type="submit" data-i18n="login.submit">Entrar</button>
+    </form>
+    <p class="login-note" data-i18n="login.note">A sessão fica salva neste aparelho. Toque em “Sair” para apagar.</p>
+  </div>
+</section>
+
+<section id="screen-routines" class="screen" hidden>
+  <header class="topbar">
+    <div class="topbar-title">
+      <h1 data-i18n="app.title">Treino</h1>
+      <span id="user-name" class="topbar-sub"></span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-icon menu-btn" type="button" data-menu-toggle aria-label="Menu" title="Menu" data-i18n-aria-label="nav.menu" data-i18n-title="nav.menu" aria-haspopup="menu" aria-expanded="false">⋯</button>
+      <button class="btn btn-icon lang-btn" type="button" data-lang-toggle aria-label="Idioma" title="Idioma" aria-haspopup="listbox" aria-expanded="false">PT</button>
+      <button id="btn-help-routines" class="btn btn-icon" type="button" aria-label="Ajuda" title="Ajuda" data-i18n-aria-label="nav.help" data-i18n-title="nav.help">ⓘ</button>
+      <button id="btn-history" class="btn btn-ghost btn-sm" type="button" data-i18n="nav.history">Histórico</button>
+      <button id="btn-logout" class="btn btn-ghost btn-sm" type="button" data-i18n="nav.logout">Sair</button>
+    </div>
+  </header>
+  <main class="wrap">
+    <p class="section-label" data-i18n="routines.section">Suas rotinas</p>
+    <div id="routines-list" class="routines"></div>
+  </main>
+</section>
+
+<section id="screen-workout" class="screen screen-workout" hidden>
+  <header class="topbar">
+    <button id="btn-back" class="btn btn-icon" type="button" aria-label="Voltar" data-i18n-aria-label="nav.back">←</button>
+    <div class="topbar-title">
+      <h1 id="workout-name">Treino</h1>
+      <span id="workout-progress" class="topbar-sub"></span>
+    </div>
+    <span id="workout-timer" class="workout-timer" hidden></span>
+    <button class="btn btn-icon menu-btn" type="button" data-menu-toggle aria-label="Menu" title="Menu" data-i18n-aria-label="nav.menu" data-i18n-title="nav.menu" aria-haspopup="menu" aria-expanded="false">⋯</button>
+    <button id="btn-help" class="btn btn-icon" type="button" aria-label="Ajuda" title="Ajuda" data-i18n-aria-label="nav.help" data-i18n-title="nav.help">ⓘ</button>
+    <button id="btn-finish" class="btn btn-primary btn-sm" type="button" data-i18n="nav.finish">Concluir</button>
+  </header>
+  <main class="wrap">
+    <div id="workout-tools" class="workout-tools" hidden>
+      <button id="btn-cancel" class="btn btn-ghost btn-sm btn-danger-ghost" type="button" data-i18n="cancel.action">Cancelar treino</button>
+    </div>
+    <div id="workout-list" class="blocks"></div>
+    <aside id="workout-aside" class="workout-aside" aria-label="Séries em andamento" data-i18n-aria-label="aside.title" hidden></aside>
+  </main>
+</section>
+
+<section id="screen-history" class="screen" hidden>
+  <header class="topbar">
+    <button id="btn-history-back" class="btn btn-icon" type="button" aria-label="Voltar" data-i18n-aria-label="nav.back">←</button>
+    <div class="topbar-title">
+      <h1 data-i18n="nav.history">Histórico</h1>
+      <span class="topbar-sub" data-i18n="history.sub">Últimos registros</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn btn-icon menu-btn" type="button" data-menu-toggle aria-label="Menu" title="Menu" data-i18n-aria-label="nav.menu" data-i18n-title="nav.menu" aria-haspopup="menu" aria-expanded="false">⋯</button>
+      <button class="btn btn-icon lang-btn" type="button" data-lang-toggle aria-label="Idioma" title="Idioma" aria-haspopup="listbox" aria-expanded="false">PT</button>
+    </div>
+  </header>
+  <main class="wrap">
+    <div id="history-list" class="history"></div>
+  </main>
+</section>
+
+<section id="screen-summary" class="screen screen-summary" hidden>
+  <div class="summary-card">
+    <div class="summary-check" aria-hidden="true">✓</div>
+    <h1 id="summary-title" data-i18n="summary.title">Treino concluído</h1>
+    <p id="summary-sub" class="summary-sub"></p>
+    <dl id="summary-stats" class="summary-stats"></dl>
+    <button id="btn-summary-ok" class="btn btn-primary btn-block" type="button" data-i18n="summary.back">Voltar às rotinas</button>
+  </div>
+</section>
+
+<div id="rest-bar" class="rest-bar" hidden>
+  <div class="rest-top">
+    <div class="rest-label-wrap">
+      <span id="rest-label" class="rest-label" data-i18n="rest.label">Descanso</span>
+      <span id="rest-time" class="rest-time">0:40</span>
+    </div>
+    <div class="rest-actions">
+      <button id="rest-add" class="btn btn-ghost btn-sm" type="button" data-i18n="rest.add">+15s</button>
+      <button id="rest-skip" class="btn btn-ghost btn-sm" type="button" data-i18n="rest.skip">Pular</button>
+    </div>
+  </div>
+  <div class="rest-progress"><span id="rest-fill"></span></div>
+</div>
+
+<div id="help-sheet" class="help-sheet" hidden>
+  <div class="help-panel" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <h2 id="help-title" data-i18n="help.title">Como ler a tabela</h2>
+
+    <div id="help-rir" class="help-section">
+      <h3 data-i18n="help.rir.title">O que é RIR</h3>
+      <p data-i18n="help.rir.intro">RIR — Repetições na Reserva (Reps in Reserve): quantas repetições você ainda conseguiria fazer com boa técnica antes de falhar.</p>
+      <ul class="help-list">
+        <li data-i18n-html="help.rir.li1"><strong>RIR 2</strong> — parou podendo fazer mais 2 (esforço moderado — padrão das suas séries)</li>
+        <li data-i18n-html="help.rir.li2"><strong>RIR 1</strong> — só mais 1 (pesado)</li>
+        <li data-i18n-html="help.rir.li3"><strong>RIR 0</strong> — até a falha (máximo — só na última série de cada exercício)</li>
+      </ul>
+      <p class="help-note" data-i18n="help.rir.note">O RIR de cada série é ajustável: digite um valor de 0 a 4 no campo ou toque no botão ▾ para escolher a opção. A alteração vale inclusive para séries já registradas.</p>
+    </div>
+
+    <div class="help-section">
+      <h3 data-i18n="help.cols.title">Colunas da tabela de séries</h3>
+      <ul class="help-list">
+        <li data-i18n-html="help.cols.num"><strong>#</strong> — número da série</li>
+        <li data-i18n-html="help.cols.kg"><strong>KG</strong> — carga usada (peso)</li>
+        <li data-i18n-html="help.cols.reps"><strong>REPS</strong> — repetições feitas</li>
+        <li data-i18n-html="help.cols.check"><strong>✓</strong> — confirma a série e inicia o descanso</li>
+      </ul>
+    </div>
+
+    <div class="help-section">
+      <h3 data-i18n="help.screen.title">Na tela do treino</h3>
+      <ul class="help-list">
+        <li data-i18n="help.screen.timer">O cronômetro no topo é o tempo total do treino.</li>
+        <li data-i18n="help.screen.ex">O chip no exercício é o tempo daquele exercício.</li>
+        <li data-i18n="help.screen.rest">A barra inferior é o descanso regressivo.</li>
+      </ul>
+    </div>
+
+    <button id="help-close" class="btn btn-primary btn-block" type="button" data-i18n="help.close">Fechar</button>
+  </div>
+</div>
+
+<div id="cancel-sheet" class="help-sheet" hidden>
+  <div class="help-panel confirm-panel" role="dialog" aria-modal="true" aria-labelledby="cancel-title">
+    <h2 id="cancel-title" data-i18n="cancel.title">Cancelar treino?</h2>
+    <p class="confirm-text" data-i18n="cancel.body">Os registros desta sessão serão apagados.</p>
+    <div class="confirm-actions">
+      <button id="cancel-dismiss" class="btn btn-ghost btn-block" type="button" data-i18n="nav.back">Voltar</button>
+      <button id="cancel-confirm" class="btn btn-danger btn-block" type="button" data-i18n="cancel.confirm">Cancelar treino</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="app.js" defer></script>
+</body>
+</html>
